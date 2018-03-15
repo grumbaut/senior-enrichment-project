@@ -4,7 +4,7 @@ Make a thing!
 
 ## Getting started
 
-Check out the mock-view in the `wireframes` folder
+See the wireframes.
 
 ## Requirements
 
