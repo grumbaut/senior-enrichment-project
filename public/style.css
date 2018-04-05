@@ -1,0 +1,53 @@
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 10px;
+}
+
+.campus {
+  margin: 20px;
+  box-sizing: border-box;
+  background: #e8ecf2;
+  padding: 15px;
+}
+
+.edit {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.student-item {
+  background: #e8ecf2;
+  border-radius: 20px;
+  margin: 10px;
+  width: 15vw;
+  padding: 15px;
+  text-align: center;
+  overflow-wrap: break-word;
+}
+
+.student-detail {
+  margin: 30px auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+  text-align: center;
+  width: 75vw;
+}
+
+.student-detail > div {
+  margin: auto;
+}
+
+.student-edit {
+  text-align: right;
+}
+
+.student-edit > button {
+  margin-left: 10px;
+}
+
+
