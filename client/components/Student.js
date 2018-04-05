@@ -1,46 +1,68 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { deleteStudent } from '../store';
 
 import CampusItem from './CampusItem';
 
 class Student extends React.Component {
   constructor(props) {
     super(props);
+    this.state = { value: 'Select a campus...'};
+    this.handleChange = this.handleChange.bind(this);
+  }
 
+  handleChange(event) {
+    this.setState({ value: event.target.value });
   }
 
   campus() {
     const { student, campuses } = this.props;
+    let campus = null;
+    let registration = `This student is not part of a campus. Please select a campus.`;
 
     if(student.campusId) {
-      const campus = campuses.find(campus => campus.id === Number(student.campusId));
-      return (
-        <div>
-          <h2>This student is registered to a campus:</h2>
-          <div className='student-campus'>
-            <CampusItem campuses={[ campus ]} />
-            <form>
-
-            </form>
-          </div>
-        </div>
-      );
+      campus = campuses.find(campus => campus.id === Number(student.campusId));
+      registration = 'This student is registered to the following campus:';
     }
-  };
 
-  render() {
-    const { student } = this.props;
     return (
       <div className='student-detail'>
-        <div>
-          <img src={ student.imageUrl } />
+        <h2>{ registration }</h2>
+        <div className='student-detail'>
+          { campus && <CampusItem campuses={[ campus ]} /> }
+          <form>
+            <select name='campus' value={ this.state.value } onChange={ this.handleChange }>
+              <option value='-1'>Select a campus...</option>
+              { campuses && campuses.map(campus => (
+                <option key={ campus.id } value={ campus.id }>{ campus.name }</option>
+              ))}
+            </select>
+            <br />
+            <button className='btn btn-primary'>Change Campus</button>
+          </form>
         </div>
-        <div>
-          <h1>{ student.fullName }</h1>
-          <h2>GPA: { student.gpa }</h2>
-          <div className='student-edit'>
-            <button className='btn btn-primary'>Edit</button>
-            <button className='btn btn-danger'>Delete</button>
+      </div>
+    );
+  }
+
+  render() {
+    const { student, del } = this.props;
+
+    if(!student) return null;
+
+    return (
+      <div>
+        <div className='student-detail'>
+          <div>
+            <img src={ student.imageUrl } />
+          </div>
+          <div>
+            <h1>{ student.fullName }</h1>
+            <h2>GPA: { student.gpa }</h2>
+            <div className='student-edit'>
+              <button className='btn btn-primary'>Edit</button>
+              <button className='btn btn-danger' onClick={ () => del(student.id) }>Delete</button>
+            </div>
           </div>
         </div>
         { this.campus() }
@@ -54,5 +76,11 @@ const mapState = (state, ownProps) => ({
   campuses: state.campuses
 });
 
-export default connect(mapState)(Student);
+const mapDispatch = (dispatch, ownProps) => ({
+  del(id) {
+    dispatch(deleteStudent(id, ownProps.history));
+  }
+});
+
+export default connect(mapState, mapDispatch)(Student);
 

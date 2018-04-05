@@ -32,10 +32,11 @@ export const postStudent = (student, history) =>
       .then(student => dispatch(addNewStudentToStore(student)))
       .then(() => history.push('/students'));
 
-export const deleteStudent = id =>
+export const deleteStudent = (id, history) =>
   dispatch =>
     axios.delete(`/api/students/${id}`)
-      .then(() => dispatch(removeStudentFromStore(id)));
+      .then(() => dispatch(removeStudentFromStore(id)))
+      .then(() => history.push('/students'));
 
 const reducer = (state = [], action) => {
   switch (action.type) {
