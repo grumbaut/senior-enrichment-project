@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { deleteStudent } from '../store';
+import { putStudent, deleteStudent } from '../store';
 
 import CampusItem from './CampusItem';
 
@@ -16,7 +16,7 @@ class Student extends React.Component {
   }
 
   campus() {
-    const { student, campuses } = this.props;
+    const { match, student, campuses, put } = this.props;
     let campus = null;
     let registration = `This student is not part of a campus. Please select a campus.`;
 
@@ -30,7 +30,7 @@ class Student extends React.Component {
         <h2>{ registration }</h2>
         <div className='student-detail'>
           { campus && <CampusItem campuses={[ campus ]} /> }
-          <form>
+          <form onSubmit={ (event) => put(event, match.params.id, { campusId: Number(this.state.value) })}>
             <select name='campus' value={ this.state.value } onChange={ this.handleChange }>
               <option value='-1'>Select a campus...</option>
               { campuses && campuses.map(campus => (
@@ -71,14 +71,18 @@ class Student extends React.Component {
   }
 }
 
-const mapState = (state, ownProps) => ({
-  student: state.students.find(student => student.id === Number(ownProps.match.params.id)),
+const mapState = (state,  { match }) => ({
+  student: state.students.find(student => student.id === Number(match.params.id)),
   campuses: state.campuses
 });
 
-const mapDispatch = (dispatch, ownProps) => ({
+const mapDispatch = (dispatch, { history }) => ({
   del(id) {
-    dispatch(deleteStudent(id, ownProps.history));
+    dispatch(deleteStudent(id, history));
+  },
+  put(event, id, update) {
+    event.preventDefault();
+    dispatch(putStudent(id, update));
   }
 });
 

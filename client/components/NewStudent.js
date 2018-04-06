@@ -75,13 +75,10 @@ class NewStudent extends React.Component {
   }
 }
 
-const mapDispatch = (dispatch, ownProps) => ({
+const mapDispatch = (dispatch, { history }) => ({
   post(event, student) {
     event.preventDefault();
-    // if(!student.imageUrl) {
-    //   delete student.imageUrl;
-    // }
-    dispatch(postStudent(student, ownProps.history));
+    dispatch(postStudent(student, history));
   }
 });
 

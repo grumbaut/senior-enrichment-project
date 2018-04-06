@@ -37,10 +37,10 @@ const mapState = state => ({
   error: state.error
 });
 
-const mapDispatch = (dispatch, ownProps) => ({
+const mapDispatch = (dispatch, { history }) => ({
   post(event, name) {
     event.preventDefault();
-    dispatch(postCampus(name, ownProps.history));
+    dispatch(postCampus(name, history));
   },
   setError(error) {
     dispatch(gotError(error));

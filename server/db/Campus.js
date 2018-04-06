@@ -8,15 +8,7 @@ const Campus = conn.define('campus', {
     type: Sequelize.STRING,
     allowNull: false,
     validate: {
-      notEmpty: { args: true, msg: 'Please provide a campus name.' },
-      // isUnique: (name, done) => {
-      //   Campus.findOne({ where: { name: name }})
-      //     .then(campus => {
-      //       if(campus) {
-      //         return done(new Error('Campus name must be unique.'));
-      //       }
-      //     });
-      // }
+      notEmpty: { args: true, msg: 'Please provide a campus name.' }
     }
   },
   imageUrl: {
