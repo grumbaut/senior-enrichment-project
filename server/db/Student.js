@@ -6,26 +6,39 @@ const Student = conn.define('student', {
     type: Sequelize.STRING,
     allowNull: false,
     validate: {
-      notEmpty: { args: true, msg: 'First name must not be blank.'}
+      notEmpty: {
+        args: true,
+        msg: 'Please enter a first name.'
+      }
     }
   },
   lastName: {
     type: Sequelize.STRING,
     allowNull: false,
     validate: {
-      notEmpty: { args: true, msg: 'Last name must not be blank.'}
+      notEmpty: {
+        args: true,
+        msg: 'Please enter a last name.'
+      }
     }
   },
   email: {
     type: Sequelize.STRING,
     allowNull: false,
     validate: {
-      notEmpty: { args: true, msg: 'Email must not be blank.'},
-      isEmail: { args: true, msg: 'Please provide a valid email.'}
+      notEmpty: {
+        args: true,
+        msg: 'Please enter an email.'
+      },
+      isEmail: {
+        args: true,
+        msg: 'Please provide a valid email.'
+      }
     }
   },
   gpa: {
     type: Sequelize.FLOAT,
+    allowNull: false,
     validate: {
       min: {
         args: [0.0],
@@ -34,7 +47,10 @@ const Student = conn.define('student', {
       max: {
         args: [4.0],
         msg: 'Maximum GPA is 4.0.'
-      }
+      },
+      notEmpty: {
+        args: true,
+        msg: 'Please enter a GPA.'}
     },
   },
   imageUrl: {

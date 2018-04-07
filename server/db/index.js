@@ -2,7 +2,7 @@ const conn = require('./conn');
 const Campus = require('./Campus');
 const Student = require('./Student');
 
-Student.belongsTo(Campus /*, { foreignKey: { allowNull: false }}*/);
+Student.belongsTo(Campus);
 Campus.hasMany(Student);
 
 module.exports = {

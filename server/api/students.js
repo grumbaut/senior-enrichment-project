@@ -26,7 +26,6 @@ router.delete('/:id', (req, res, next) => {
 
 // Put /api/students/:id
 router.put('/:id', (req, res, next) => {
-  console.log(req.body)
   Student.findById(req.params.id)
     .then(student => student.update(req.body))
     .then(student => res.send(student))

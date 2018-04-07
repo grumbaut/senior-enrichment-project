@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Campus } = require('../db');
+const { Campus, Student } = require('../db');
 
 module.exports = router;
 
@@ -19,11 +19,25 @@ router.post('/', (req, res, next) => {
     .catch(next);
 });
 
-//delete /api/campuses/:id
+// delete /api/campuses/:id
 
 router.delete('/:id', (req, res, next) => {
   Campus.findById(req.params.id)
     .then(campus => campus.destroy())
+    .then(() => Student.update({
+      campusId: null
+    }, {
+      where: { campusId: req.params.id }
+    }))
     .then(() => res.sendStatus(200))
+    .catch(next);
+});
+
+// put /api/campuses/:id
+
+router.put('/:id', (req, res, next) => {
+  Campus.findById(req.params.id)
+    .then(campus => campus.update(req.body))
+    .then(campus => res.send(campus))
     .catch(next);
 });

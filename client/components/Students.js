@@ -3,30 +3,25 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { deleteStudent } from '../store';
 
+import StudentItem from './StudentItem';
+
 const Students = ({ students, del }) => {
-  if(!students) return null;
+  if(!students.length) {
+    return (
+      <div className='empty-message'>
+        <h2>There are no students in the database.</h2>
+        <Link to='/studentform'><button className='btn btn-primary'>Add Student</button></Link>
+      </div>
+    );
+  }
+
   return (
     <div>
       <div className='header'>
         <h1>All Students</h1>
-        <Link to='/addstudent'><button className='btn btn-primary'>Add Student</button></Link>
+        <Link to='/studentform'><button className='btn btn-primary'>Add Student</button></Link>
       </div>
-      <div className='row justify-content-center'>
-        { students.map(student => {
-          return (
-            <div key={ student.id } className='student-item'>
-              <img className='img-fluid' src={ student.imageUrl } />
-              <h5><Link to={`/students/${student.id}`} student={ student }>{ student.fullName }</Link></h5>
-              <a href={`mailto:${student.email}`}>{ student.email }</a>
-              <p>GPA: { student.gpa }</p>
-              <div className='edit'>
-                <button className='btn btn-primary'>Edit</button>
-                <button className='btn btn-danger' onClick={ () => del(student.id)}>Delete</button>
-              </div>
-            </div>
-          );
-        })}
-      </div>
+      <StudentItem students={ students } />
     </div>
   );
 };

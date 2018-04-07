@@ -9,16 +9,26 @@ const create = (n, func) => {
 };
 
 const createCampus = () => {
-  const campusNames = ['Functions', 'Objects', 'Semicolons', 'Math.random', 'Arrays', 'Loops', 'Prototypes', 'Node', 'Constructors', 'Recursion', 'Nested Loops', 'Array.splice', 'JSX', 'Sequelize', 'JSON', 'String.slice', 'Fat Arrows', 'Parameters'];
+  const campusNames = ['Functions', 'Objects', 'Semicolons', 'Math.random', 'Arrays', 'Loops', 'Prototypes', 'Node', 'Constructors', 'Recursion', 'Nested Loops', 'Array.splice', 'JSX', 'Sequelize', 'JSON', 'String.slice', 'Fat Arrows', 'Parameters', 'Horizontal Rules'];
   const randomIndex = Math.floor(Math.random() * (campusNames.length - 1) + 1);
   const name = `${faker.name.findName()} School of ${campusNames[randomIndex]}`;
+  const address = faker.address.streetAddress();
+  const description = faker.lorem.paragraphs(2);
+  const city = faker.address.city();
+  const state = faker.address.stateAbbr();
+  const zip = faker.address.zipCode();
   Campus.create({
-    name
+    name,
+    description,
+    address,
+    city,
+    state,
+    zip
   });
 };
 
 const associate = (student) => {
-  Campus.findAll()
+  return Campus.findAll()
     .then(campuses => {
       const index = (Math.random() * campuses.length).toFixed(0);
       return campuses[index];
@@ -35,7 +45,7 @@ const createStudent = () => {
   const gpa = Number((Math.random() * (4.0)).toFixed(2));
   const imageUrl = toonavatar.generate_avatar();
 
-  Student.create({
+  return Student.create({
     firstName,
     lastName,
     email,
@@ -46,5 +56,6 @@ const createStudent = () => {
 };
 
 conn.sync({ force: true })
-  .then(() => create(4, createCampus))
-  .then(() => create(10, createStudent));
+  .then(() => create(6, createCampus))
+  .then(() => create(100, createStudent))
+  .catch(error => console.error(error));

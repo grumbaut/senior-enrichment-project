@@ -5,13 +5,20 @@ import { deleteCampus } from '../store';
 import CampusItem from './CampusItem';
 
 const Campuses = ({ campuses, students, del }) => {
-  if(!campuses) return null;
+  if(!campuses.length) {
+    return (
+      <div className='empty-message'>
+        <h2>There are no campuses in the database.</h2>
+        <Link to='/campusform'><button className='btn btn-primary'>Add Campus</button></Link>
+      </div>
+    );
+  }
 
   return (
     <div>
       <div className='header'>
         <h1>All Campuses</h1>
-        <Link to='/addcampus'><button className='btn btn-primary'>Add Campus</button></Link>
+        <Link to='/campusform'><button className='btn btn-primary'>Add Campus</button></Link>
       </div>
       <div className='row justify-content-center'>
         <CampusItem campuses={ campuses } students={ students } del={ del } />

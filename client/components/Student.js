@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { putStudent, deleteStudent } from '../store';
 
 import CampusItem from './CampusItem';
@@ -7,7 +8,7 @@ import CampusItem from './CampusItem';
 class Student extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { value: 'Select a campus...'};
+    this.state = { value: -1};
     this.handleChange = this.handleChange.bind(this);
   }
 
@@ -17,6 +18,7 @@ class Student extends React.Component {
 
   campus() {
     const { match, student, campuses, put } = this.props;
+    console.log(student);
     let campus = null;
     let registration = `This student is not part of a campus. Please select a campus.`;
 
@@ -60,7 +62,7 @@ class Student extends React.Component {
             <h1>{ student.fullName }</h1>
             <h2>GPA: { student.gpa }</h2>
             <div className='student-edit'>
-              <button className='btn btn-primary'>Edit</button>
+              <Link to={`/studentform/${student.id}`}><button className='btn btn-primary'>Edit</button></Link>
               <button className='btn btn-danger' onClick={ () => del(student.id) }>Delete</button>
             </div>
           </div>
@@ -82,7 +84,7 @@ const mapDispatch = (dispatch, { history }) => ({
   },
   put(event, id, update) {
     event.preventDefault();
-    dispatch(putStudent(id, update));
+    dispatch(putStudent(id, update, history));
   }
 });
 
