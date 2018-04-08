@@ -4,7 +4,8 @@
   "description": "Make a thing!",
   "main": "server/server.js",
   "scripts": {
-    "postinstall": "npm run webpack",
+    "star": "node server/server.js",
+    "postinstall": "npm run seed && npm run webpack",
     "seed": "node seed.js",
     "webpack": "./node_modules/webpack/bin/webpack.js",
     "test": "echo \"Error: no test specified\" && exit 1",
