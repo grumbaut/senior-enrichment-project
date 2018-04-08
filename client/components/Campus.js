@@ -10,7 +10,6 @@ const Campus = ({ campus, students, del, match }) => {
   const campusStudents = students.filter(student => student.campusId === Number(id));
 
   if(!campus) return null;
-  console.log(campus.description)
   return (
     <div>
       <div className='row campus justify-content-center'>
