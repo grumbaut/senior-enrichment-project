@@ -39,6 +39,7 @@ class CampusForm extends React.Component {
           <div className='form-group'>
             <label htmlFor='name'>Name:</label>
             <input
+              type='text'
               name='name'
               className='form-control'
               value={ this.state.campus.name }
@@ -47,6 +48,7 @@ class CampusForm extends React.Component {
           <div className='form-group'>
             <label htmlFor='city'>City:</label>
             <input
+              type='text'
               name='city'
               className='form-control'
               value={ this.state.campus.city }
@@ -55,6 +57,7 @@ class CampusForm extends React.Component {
           <div className='form-group'>
             <label htmlFor='planet'>Planet:</label>
             <input
+              type='text'
               name='planet'
               className='form-control'
               value={ this.state.campus.planet }
@@ -63,6 +66,7 @@ class CampusForm extends React.Component {
           <div className='form-group'>
             <label htmlFor='imageUrl'>Image URL:</label>
             <input
+              type='text'
               name='imageUrl'
               className='form-control'
               value={ this.state.campus.imageUrl }
@@ -77,7 +81,7 @@ class CampusForm extends React.Component {
               value={ this.state.campus.description }
               onChange={ this.handleChange } />
           </div>
-          <button className='btn btn-primary'>Submit</button>
+          <button className='btn btn-outline-primary'>Submit</button>
         </form>
       </div>
     );

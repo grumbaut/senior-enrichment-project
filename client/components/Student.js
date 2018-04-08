@@ -40,7 +40,7 @@ class Student extends React.Component {
               ))}
             </select>
             <br />
-            <button className='btn btn-primary'>Change Campus</button>
+            <button className='btn btn-outline-primary'>Change Campus</button>
           </form>
         </div>
       </div>
@@ -62,8 +62,8 @@ class Student extends React.Component {
             <h1>{ student.fullName }</h1>
             <h2>GPA: { student.gpa }</h2>
             <div className='student-edit'>
-              <Link to={`/studentform/${student.id}`}><button className='btn btn-primary'>Edit</button></Link>
-              <button className='btn btn-danger' onClick={ () => del(student.id) }>Delete</button>
+              <Link to={`/studentform/${student.id}`}><button className='btn btn-outline-primary'>Edit</button></Link>
+              <button className='btn btn-outline-danger' onClick={ () => del(student.id) }>Delete</button>
             </div>
           </div>
         </div>

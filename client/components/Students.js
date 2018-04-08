@@ -10,7 +10,7 @@ const Students = ({ students, del }) => {
     return (
       <div className='empty-message'>
         <h2>There are no students in the database.</h2>
-        <Link to='/studentform'><button className='btn btn-primary'>Add Student</button></Link>
+        <Link to='/studentform'><button className='btn btn-outline-primary'>Add Student</button></Link>
       </div>
     );
   }
@@ -19,7 +19,7 @@ const Students = ({ students, del }) => {
     <div>
       <div className='header'>
         <h1>All Students</h1>
-        <Link to='/studentform'><button className='btn btn-primary'>Add Student</button></Link>
+        <Link to='/studentform'><button className='btn btn-outline-primary'>Add Student</button></Link>
       </div>
       <StudentItem students={ students } />
     </div>

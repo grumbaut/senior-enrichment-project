@@ -2,11 +2,11 @@ body {
   color: white;
   background: black;
   font-family: 'Comfortaa', cursive;
+  font-size: 17px;
 }
 
 #main {
   background-size: cover;
-  height: 90vh;
   width: 100vw;
   margin: 0;
 }
@@ -33,7 +33,7 @@ body {
   text-align: center;
   background: black;
   color: white;
-  margin: 0;
+  margin-top: 30px;
 }
 
 .bg-nav {
@@ -120,4 +120,18 @@ body {
 #add-student-to-campus {
   text-align: right;
   padding-bottom: 0;
+}
+
+input[type='text'], select, textarea {
+  background: black;
+  color: white;
+  border: 2px double #8a5478;
+  width: 75%;
+}
+
+input[type='text']:focus, select:focus, textarea:focus {
+  background: black;
+  color: white;
+  border: 2px double #8a5478;
+  width: 75%;
 }

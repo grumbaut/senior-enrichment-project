@@ -40,6 +40,7 @@ class StudentForm extends React.Component {
           <div className='form-group'>
             <label htmlFor='firstName'>First Name:</label>
             <input
+              type='text'
               name='firstName'
               className='form-control'
               value={ this.state.student.firstName }
@@ -48,6 +49,7 @@ class StudentForm extends React.Component {
           <div className='form-group'>
             <label htmlFor='lastName'>Last Name:</label>
             <input
+              type='text'
               name='lastName'
               className='form-control'
               value={ this.state.student.lastName }
@@ -56,6 +58,7 @@ class StudentForm extends React.Component {
           <div className='form-group'>
             <label htmlFor='email'>Email:</label>
             <input
+              type='text'
               name='email'
               className='form-control'
               value={ this.state.student.email }
@@ -64,6 +67,7 @@ class StudentForm extends React.Component {
           <div className='form-group'>
             <label htmlFor='gpa'>GPA:</label>
             <input
+              type='text'
               name='gpa'
               className='form-control'
               value={ this.state.student.gpa }
@@ -72,6 +76,7 @@ class StudentForm extends React.Component {
           <div className='form-group'>
             <label htmlFor='imageUrl'>Image URL:</label>
             <input
+              type='text'
               name='imageUrl'
               className='form-control'
               value={ this.state.student.imageUrl }
@@ -87,7 +92,7 @@ class StudentForm extends React.Component {
               ))}
             </select>
           </div>
-          <button className='btn btn-primary'>Submit</button>
+          <button className='btn btn-outline-primary'>Submit</button>
         </form>
       </div>
     );

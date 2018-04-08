@@ -9,7 +9,7 @@ const Campuses = ({ campuses, students, del }) => {
     return (
       <div className='empty-message'>
         <h2>There are no campuses in the database.</h2>
-        <Link to='/campusform'><button className='btn btn-primary'>Add Campus</button></Link>
+        <Link to='/campusform'><button className='btn btn-outline-primary'>Add Campus</button></Link>
       </div>
     );
   }
@@ -18,7 +18,7 @@ const Campuses = ({ campuses, students, del }) => {
     <div>
       <div className='header'>
         <h1>All Campuses</h1>
-        <Link to='/campusform'><button className='btn btn-primary'>Add Campus</button></Link>
+        <Link to='/campusform'><button className='btn btn-outline-primary'>Add Campus</button></Link>
       </div>
       <div className='row justify-content-center'>
         <CampusItem campuses={ campuses } students={ students } del={ del } />

@@ -21,8 +21,8 @@ const Campus = ({ campus, students, del, match }) => {
           <p><strong>City: </strong>{ campus.city }</p>
           <p><strong>Planet: </strong>{ campus.planet }</p>
           <p>{ campus.description }</p>
-          <Link to={`/campusform/${campus.id}`}><button className='btn btn-primary'>Edit</button></Link>
-          <button className='btn btn-danger' onClick={ del }>Delete</button>
+          <Link to={`/campusform/${campus.id}`}><button className='btn btn-outline-primary'>Edit</button></Link>
+          <button className='btn btn-outline-danger' onClick={ del }>Delete</button>
         </div>
       </div>
       <div className='row students-on-campus'>
@@ -33,7 +33,7 @@ const Campus = ({ campus, students, del, match }) => {
           <Link to={{
             pathname: '/studentform',
             state: { campus }
-          }}><button className='btn btn-primary'>Add Student</button></Link>
+          }}><button className='btn btn-outline-primary'>Add Student</button></Link>
         </div>
       </div>
       <div className='row'>
