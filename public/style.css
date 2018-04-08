@@ -1,3 +1,45 @@
+body {
+  color: white;
+  background: black;
+  font-family: 'Comfortaa', cursive;
+}
+
+#main {
+  background-size: cover;
+  height: 90vh;
+  width: 100vw;
+  margin: 0;
+}
+
+#intro {
+  margin: 100px auto;
+  text-align: center;
+  font-family: 'Gugi', cursive;
+  width: 50vw;
+}
+
+#main > p {
+  margin: 50px auto;
+}
+
+#icon {
+  height: 10vh;
+  width: 10vw;
+  margin: 0 auto;
+}
+
+#footer {
+  height: 100%;
+  text-align: center;
+  background: black;
+  color: white;
+  margin: 0;
+}
+
+.bg-nav {
+  background: black;
+}
+
 .header {
   display: flex;
   flex-wrap: wrap;
@@ -8,8 +50,19 @@
 .campus-item {
   margin: 20px;
   box-sizing: border-box;
-  background: #e8ecf2;
+  background: black;
+  border: 2px double #8a5478;
   padding: 15px;
+  border-radius: 50px;
+}
+
+.campus-item > a:active {
+  color: white;
+}
+
+.campus-item > img {
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
 .edit {
@@ -19,7 +72,8 @@
 }
 
 .student-item {
-  background: #e8ecf2;
+  background: black;
+  border: 2px double #8a5478;
   border-radius: 20px;
   margin: 10px;
   width: 15vw;

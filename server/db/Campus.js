@@ -14,16 +14,6 @@ const Campus = conn.define('campus', {
       }
     }
   },
-  address: {
-    type: Sequelize.STRING,
-    allowNull: false,
-    validate: {
-      notEmpty: {
-        args: true,
-        msg: 'Please provide an address.'
-      }
-    }
-  },
   city: {
     type: Sequelize.STRING,
     allowNull: false,
@@ -34,37 +24,21 @@ const Campus = conn.define('campus', {
       }
     }
   },
-  state: {
+  planet: {
     type: Sequelize.STRING,
     allowNull: false,
     validate: {
       notEmpty: {
         args: true,
-        msg: 'Please provide a state.'
-      }
-    }
-  },
-  zip: {
-    type: Sequelize.STRING,
-    allowNull: false,
-    validate: {
-      notEmpty: {
-        args: true,
-        msg: 'Please provide a zip code.'
+        msg: 'Please provide a homeworld.'
       }
     }
   },
   imageUrl: {
     type: Sequelize.STRING,
-    defaultValue: 'https://img.buzzfeed.com/buzzfeed-static/static/2017-05/17/14/asset/buzzfeed-prod-fastlane-03/sub-buzz-2246-1495046068-1.jpg?downsize=715:*&output-format=auto&output-quality=auto'
+    defaultValue: '/images/database/default.jpg'
   },
   description: Sequelize.TEXT('long')
-}, {
-  getterMethods: {
-    location() {
-      return `${this.city}, ${this.state} ${this.zip}`;
-    }
-  }
 });
 
 module.exports = Campus;

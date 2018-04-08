@@ -8,10 +8,8 @@ class CampusForm extends React.Component {
     const campus = this.props.campus;
     this.state = { campus: {
       name: campus ? campus.name : '',
-      address: campus ? campus.address : '',
       city: campus ? campus.city : '',
-      state: campus ? campus.state : '',
-      zip: campus ? campus.zip : '',
+      planet: campus ? campus.planet : '',
       imageUrl: campus ? campus.imageUrl : undefined,
       description: campus ? campus.description : ''
     }
@@ -32,7 +30,7 @@ class CampusForm extends React.Component {
   }
 
   render() {
-    const { error, campus, students, post, put } = this.props;
+    const { error, campus, post, put } = this.props;
     return (
       <div>
         <h1>{ campus ? 'Edit Campus' : 'Add Campus' }</h1>
@@ -47,14 +45,6 @@ class CampusForm extends React.Component {
               onChange={ this.handleChange } />
           </div>
           <div className='form-group'>
-            <label htmlFor='address'>Address:</label>
-            <input
-              name='address'
-              className='form-control'
-              value={ this.state.campus.address }
-              onChange={ this.handleChange } />
-          </div>
-          <div className='form-group'>
             <label htmlFor='city'>City:</label>
             <input
               name='city'
@@ -63,19 +53,11 @@ class CampusForm extends React.Component {
               onChange={ this.handleChange } />
           </div>
           <div className='form-group'>
-            <label htmlFor='state'>State:</label>
+            <label htmlFor='planet'>Planet:</label>
             <input
-              name='state'
+              name='planet'
               className='form-control'
-              value={ this.state.campus.state }
-              onChange={ this.handleChange } />
-          </div>
-          <div className='form-group'>
-            <label htmlFor='zip'>Zip Code:</label>
-            <input
-              name='zip'
-              className='form-control'
-              value={ this.state.campus.zip }
+              value={ this.state.campus.planet }
               onChange={ this.handleChange } />
           </div>
           <div className='form-group'>
@@ -93,7 +75,7 @@ class CampusForm extends React.Component {
               name='description'
               rows='5' cols='50'
               value={ this.state.campus.description }
-              onChange={ this.handleChange }/>
+              onChange={ this.handleChange } />
           </div>
           <button className='btn btn-primary'>Submit</button>
         </form>
@@ -104,8 +86,7 @@ class CampusForm extends React.Component {
 
 const mapState = (state, { match }) => ({
   error: state.error,
-  campus: !match.params.id ? null : state.campuses.find(campus => campus.id === Number(match.params.id)),
-  students: state.students
+  campus: !match.params.id ? null : state.campuses.find(campus => campus.id === Number(match.params.id))
 });
 
 const mapDispatch = (dispatch, { history }) => ({

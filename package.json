@@ -42,5 +42,8 @@
   "bugs": {
     "url": "https://github.com/grumbaut/senior-enrichment/issues"
   },
-  "homepage": "https://github.com/grumbaut/senior-enrichment#readme"
+  "homepage": "https://github.com/grumbaut/senior-enrichment#readme",
+  "devDependencies": {
+    "chance": "^1.0.13"
+  }
 }

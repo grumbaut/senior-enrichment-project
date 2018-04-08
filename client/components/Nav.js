@@ -2,9 +2,9 @@ import React from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
 
 const Nav = () => (
-  <nav className="navbar navbar-expand-lg navbar-light bg-light">
+  <nav className="navbar navbar-expand-lg navbar-dark bg-nav" id='nav'>
     <NavLink className="navbar-brand" to='/'>
-      <img src='/images/small-rocket-ship-silhouette.svg' style={{width: '30px'}} /> MHI
+      <img src='/images/small-rocket-ship-silhouette.svg' style={{width: '30px'}} /> MHIA
     </NavLink>
     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span className="navbar-toggler-icon" />

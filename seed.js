@@ -1,30 +1,53 @@
-const faker = require('faker');
 const toonavatar = require('cartoon-avatar');
+const Chance = require('chance');
+const chance = new Chance();
+const faker = require('faker');
 const { conn, Student, Campus } = require('./server/db');
 
+//returns array of promises for use in Promise.all below
 const create = (n, func) => {
+  const results = [];
   while(n--) {
-    func();
+    results.push(func());
   }
+  return results;
 };
 
 const createCampus = () => {
   const campusNames = ['Functions', 'Objects', 'Semicolons', 'Math.random', 'Arrays', 'Loops', 'Prototypes', 'Node', 'Constructors', 'Recursion', 'Nested Loops', 'Array.splice', 'JSX', 'Sequelize', 'JSON', 'String.slice', 'Fat Arrows', 'Parameters', 'Horizontal Rules'];
-  const randomIndex = Math.floor(Math.random() * (campusNames.length - 1) + 1);
-  const name = `${faker.name.findName()} School of ${campusNames[randomIndex]}`;
-  const address = faker.address.streetAddress();
-  const description = faker.lorem.paragraphs(2);
-  const city = faker.address.city();
-  const state = faker.address.stateAbbr();
-  const zip = faker.address.zipCode();
-  Campus.create({
+  const planets = ['Mercury', 'Venus', 'Earth', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune'];
+  const name = `${chance.name()} School of ${campusNames[chance.integer({min: 0, max: campusNames.length - 1})]}`;
+  const city = chance.city();
+  const state = chance.state();
+  const description = faker.lorem.paragraphs(3);
+  const planet = planets[chance.integer({ min: 0, max: planets.length - 1})];
+  const imageUrl = `/images/database/${planet}.jpg`;
+  return Campus.create({
     name,
-    description,
-    address,
     city,
     state,
-    zip
+    description,
+    planet,
+    imageUrl
   });
+};
+
+const createStudent = () => {
+  const gender = chance.gender();
+  const firstName = chance.first({ gender });
+  const lastName = chance.last({ gender });
+  const email = chance.email();
+  const gpa = chance.floating({ min: 0, max: 4, fixed: 2 });
+  const imageUrl = toonavatar.generate_avatar({ "gender": gender });
+
+  return Student.create({
+    firstName,
+    lastName,
+    email,
+    gpa,
+    imageUrl
+  })
+    .then(student => associate(student));
 };
 
 const associate = (student) => {
@@ -38,24 +61,14 @@ const associate = (student) => {
     });
 };
 
-const createStudent = () => {
-  const firstName = faker.name.firstName();
-  const lastName = faker.name.lastName();
-  const email = faker.internet.email();
-  const gpa = Number((Math.random() * (4.0)).toFixed(2));
-  const imageUrl = toonavatar.generate_avatar();
-
-  return Student.create({
-    firstName,
-    lastName,
-    email,
-    gpa,
-    imageUrl
-  })
-    .then(student => associate(student));
-};
-
 conn.sync({ force: true })
-  .then(() => create(6, createCampus))
-  .then(() => create(100, createStudent))
-  .catch(error => console.error(error));
+  .then(() => {
+    return Promise.all(create(6, createCampus));
+  })
+  .then(() => {
+    return Promise.all(create(100, createStudent));
+  })
+  .finally(() => {
+    conn.close();
+    return null;
+  });

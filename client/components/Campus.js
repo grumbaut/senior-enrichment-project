@@ -10,7 +10,7 @@ const Campus = ({ campus, students, del, match }) => {
   const campusStudents = students.filter(student => student.campusId === Number(id));
 
   if(!campus) return null;
-
+  console.log(campus.description)
   return (
     <div>
       <div className='row campus justify-content-center'>
@@ -19,16 +19,12 @@ const Campus = ({ campus, students, del, match }) => {
         </div>
         <div className='col-6'>
           <h1>{ campus.name }</h1>
+          <p><strong>City: </strong>{ campus.city }</p>
+          <p><strong>Planet: </strong>{ campus.planet }</p>
           <p>{ campus.description }</p>
+          <Link to={`/campusform/${campus.id}`}><button className='btn btn-primary'>Edit</button></Link>
+          <button className='btn btn-danger' onClick={ del }>Delete</button>
         </div>
-      </div>
-      <div className='row'>
-        <div className='col-6'>
-          { campus.address }<br />
-          { campus.location }
-        </div>
-        <Link to={`/campusform/${campus.id}`}><button className='btn btn-primary'>Edit</button></Link>
-        <button className='btn btn-danger' onClick={ del }>Delete</button>
       </div>
       <div className='row students-on-campus'>
         <div className='col-6'>

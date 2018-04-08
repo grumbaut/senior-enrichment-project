@@ -11,6 +11,7 @@ import CampusForm from './CampusForm';
 import StudentForm from './StudentForm';
 import Student from './Student';
 import Campus from './Campus';
+import Footer from './Footer';
 
 class Main extends React.Component {
   constructor(props) {
@@ -23,26 +24,25 @@ class Main extends React.Component {
 
   render() {
     return (
-      <div>
-        <HashRouter>
-          <div>
-            <Nav />
-            <div className='container-fluid'>
-              <Switch>
-                <Route path='/students/:id' component={ Student } />
-                <Route path='/campuses/:id' component={ Campus } />
-                <Route path='/studentform/:id' component={ StudentForm } />
-                <Route path='/campusform/:id' component={CampusForm } />
-                <Route path='/students' component={ Students } />
-                <Route path='/campuses' component={ Campuses } />
-                <Route path='/campusform' component={ CampusForm } />
-                <Route path='/studentform' component={ StudentForm } />
-                <Route exact path='/' component={ Home } />
-              </Switch>
-            </div>
+      <HashRouter>
+        <div>
+          <Nav />
+          <div className='container-fluid'>
+            <Switch>
+              <Route path='/students/:id' component={ Student } />
+              <Route path='/campuses/:id' component={ Campus } />
+              <Route path='/studentform/:id' component={ StudentForm } />
+              <Route path='/campusform/:id' component={CampusForm } />
+              <Route path='/students' component={ Students } />
+              <Route path='/campuses' component={ Campuses } />
+              <Route path='/campusform' component={ CampusForm } />
+              <Route path='/studentform' component={ StudentForm } />
+              <Route exact path='/' component={ Home } />
+            </Switch>
           </div>
-        </HashRouter>
-      </div>
+          <Footer />
+        </div>
+      </HashRouter>
     );
   }
 }
