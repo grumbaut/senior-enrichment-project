@@ -1,4 +1,4 @@
-import React from 'React';
+import React from 'react';
 import CampusItem from './CampusItem';
 
 class StudentCampusDetail extends React.Component {
