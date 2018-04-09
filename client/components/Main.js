@@ -9,6 +9,7 @@ import Students from './Students';
 import Campuses from './Campuses';
 import EditCampus from './EditCampus';
 import EditStudent from './EditStudent';
+import TransferStudents from './TransferStudents';
 import AddStudent from './AddStudent';
 import AddCampus from './AddCampus';
 import Student from './Student';
@@ -31,6 +32,7 @@ class Main extends React.Component {
           <Nav />
           <div className='container-fluid'>
             <Switch>
+              <Route path='/transfer/:id' component={ TransferStudents } />
               <Route path='/students/:id' component={ Student } />
               <Route path='/campuses/:id' component={ Campus } />
               <Route path='/editstudent/:id' component={ EditStudent } />

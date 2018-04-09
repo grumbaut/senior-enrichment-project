@@ -4,10 +4,12 @@ import { Link } from 'react-router-dom';
 import { deleteCampus } from '../store';
 
 import StudentItem from './StudentItem';
+import TransferDropdown from './TransferDropdown';
 
 const Campus = ({ campus, students, del, match }) => {
   const id = match.params.id;
   const campusStudents = students.filter(student => student.campusId === Number(id));
+  const studentsNotOnCampus = students.filter(student => student.campusId !== Number(id));
 
   if(!campus) return null;
   return (
@@ -33,7 +35,21 @@ const Campus = ({ campus, students, del, match }) => {
           <Link to={{
             pathname: '/addstudent',
             state: { campus }
-          }}><button className='btn btn-outline-primary'>Add Student</button></Link>
+          }}>
+            <button className='btn btn-outline-primary'>
+              Add New Student
+            </button>
+          </Link>
+          <Link to={`/transfer/${campus.id}`}>
+            <button className='btn btn-outline-success'>
+            Transfer Multiple Students
+            </button>
+          </Link>
+        </div>
+      </div>
+      <div className='row'>
+        <div className='col-12'>
+          <TransferDropdown students={ studentsNotOnCampus } campus={ campus } />
         </div>
       </div>
       <div className='row'>

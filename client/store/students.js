@@ -71,6 +71,14 @@ export const putStudent = (id, update, history) =>
       .then(() => history.push(`/students/${id}`))
       .catch(error => dispatch(gotError(error)));
 
+export const transferStudent = (students, id, history) =>
+  dispatch =>
+    axios.put(`/api/students/transfer/${id}`, { students, id })
+      .then(res => res.data)
+      .then(students => students.forEach(student => dispatch(addUpdatedStudentToStore(student))))
+      .then(() => history.push(`/campuses/${id}`))
+      .catch(error => console.error(error));
+
 const reducer = (state = [], action) => {
   switch (action.type) {
   case GOT_STUDENTS:

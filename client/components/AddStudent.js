@@ -39,7 +39,7 @@ class AddStudent extends React.Component {
             </li>
           )) }
         </ul>
-        <form onSubmit={ (event) => post(event, this.state) }>
+        <form onSubmit={ event => post(event, this.state) }>
           <div className='form-group'>
             <label htmlFor='firstName'>First Name:</label>
             <input

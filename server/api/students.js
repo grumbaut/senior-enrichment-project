@@ -31,3 +31,8 @@ router.put('/:id', (req, res, next) => {
     .then(student => res.send(student))
     .catch(next);
 });
+
+// Put /api/students/transfer
+router.put('/transfer/:id', (req, res, next) => {
+  console.log(req.body);
+});

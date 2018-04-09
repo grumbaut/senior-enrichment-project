@@ -18,6 +18,10 @@ body {
   width: 50vw;
 }
 
+.form {
+  margin: 15px auto;
+}
+
 #main > p {
   margin: 50px auto;
 }
