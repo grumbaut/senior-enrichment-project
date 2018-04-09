@@ -12,10 +12,18 @@ class AddStudent extends React.Component {
       email: '',
       gpa: '',
       imageUrl: undefined,
-      campusId: campus ? campus.id : -1
+      campusId: campus ? campus.id : -1,
+      touched: {
+        firstName: false,
+        lastName: false,
+        email: false,
+        gpa: false
+      }
     };
     this.handleChange = this.handleChange.bind(this);
     this.goBack = this.goBack.bind(this);
+    this.validate = this.validate.bind(this);
+    this.handleBlur = this.handleBlur.bind(this);
   }
 
   goBack() {
@@ -26,55 +34,78 @@ class AddStudent extends React.Component {
     this.setState({ [event.target.name]: event.target.value });
   }
 
+  handleBlur(field) {
+    const touched = Object.assign(this.state.touched, { [field]: true });
+    this.setState({ touched });
+  }
+
+  validate(firstName, lastName, email, gpa) {
+    return {
+      firstName: firstName.length === 0,
+      lastName: lastName.length === 0,
+      email: email.length === 0 || email.indexOf('@') < 0,
+      gpa: gpa.length === 0 || Number(gpa) < 0.0 ||Number(gpa) > 4.0
+    };
+  }
+
   render() {
-    const { error, campuses, post } = this.props;
-    console.log(this.props);
+    const { campuses, post } = this.props;
+    const { firstName, lastName, email, gpa, touched } = this.state;
+    const errors = this.validate(firstName, lastName, email, gpa);
+
+    const showError = field => {
+      const hasError = errors[field];
+      const shouldShow = this.state.touched[field];
+      return hasError ? shouldShow : false;
+    };
+
     return (
       <div>
         <h1>Add Student</h1>
-        <ul className='error'>
-          { error.map(err => (
-            <li key={ err }>
-              { err }
-            </li>
-          )) }
-        </ul>
         <form onSubmit={ event => post(event, this.state) }>
           <div className='form-group'>
             <label htmlFor='firstName'>First Name:</label>
             <input
               type='text'
               name='firstName'
-              className='form-control'
+              className={ showError('firstName') ? 'error form-control' : 'form-control'}
               value={ this.state.firstName }
-              onChange={ this.handleChange } />
+              onChange={ this.handleChange }
+              onBlur={ () => this.handleBlur('firstName')} />
+            { errors.firstName && touched.firstName ? <p className='error'>Please provide a first name.</p> : null }
           </div>
           <div className='form-group'>
             <label htmlFor='lastName'>Last Name:</label>
             <input
               type='text'
               name='lastName'
-              className='form-control'
+              className={ showError('lastName') ? 'error form-control' : 'form-control'}
               value={ this.state.lastName }
+              onBlur={ () => this.handleBlur('lastName')}
               onChange={ this.handleChange } />
+            { errors.lastName && touched.lastName ? <p className='error'>Please provide a last name.</p> : null }
           </div>
           <div className='form-group'>
             <label htmlFor='email'>Email:</label>
             <input
               type='text'
               name='email'
-              className='form-control'
+              className={ showError('email') ? 'error form-control' : 'form-control'}
               value={ this.state.email }
+              onBlur={ () => this.handleBlur('email')}
               onChange={ this.handleChange } />
+            { errors.email && touched.email ? <p className='error'>Please provide a valid email.</p> : null }
           </div>
           <div className='form-group'>
             <label htmlFor='gpa'>GPA:</label>
             <input
               type='text'
               name='gpa'
-              className='form-control'
+              className={ showError('gpa') ? 'error form-control' : 'form-control'}
               value={ this.state.gpa }
+              onBlur={ () => this.handleBlur('gpa')}
               onChange={ this.handleChange } />
+            { errors.gpa && touched.gpa ? <p className='error'>Please provide a GPA between 0.0 and 4.0.</p> : null }
           </div>
           <div className='form-group'>
             <label htmlFor='imageUrl'>Image URL:</label>
@@ -88,7 +119,10 @@ class AddStudent extends React.Component {
           <div className='form-group'>
             <label htmlFor='campusId'>Campus:</label>
             <br />
-            <select name='campusId' value={ this.state.campusId } onChange={ this.handleChange }>
+            <select
+              name='campusId'
+              value={ this.state.campusId }
+              onChange={ this.handleChange }>
               <option value='-1'>Select a campus...</option>
               { campuses && campuses.map(campus => (
                 <option key={ campus.id } value={ campus.id }>{ campus.name }</option>
@@ -104,8 +138,7 @@ class AddStudent extends React.Component {
 }
 
 const mapState = (state, { match, history }) => ({
-  campuses: state.campuses,
-  error: state.error
+  campuses: state.campuses
 });
 
 const mapDispatch = (dispatch, { history }) => ({

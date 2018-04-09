@@ -31,7 +31,7 @@ class StudentCampusDetail extends React.Component {
         <div className='student-detail'>
           { campus && <CampusItem campuses={[ campus ]} /> }
           <form onSubmit={ (event) => put(event, match.params.id, { campusId: Number(this.state.value) })}>
-            <select name='campus' value={ this.state.value } onChange={ this.handleChange }>
+            <select id='student-campus-dropdown' name='campus' value={ this.state.value } onChange={ this.handleChange }>
               <option value='-1'>Select a campus...</option>
               { campuses && campuses.map(campus => (
                 <option key={ campus.id } value={ campus.id }>{ campus.name }</option>

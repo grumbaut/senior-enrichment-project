@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { gotError, destroyCampus, clearError } from './index';
+import { destroyCampus } from './index';
 
 const GOT_CAMPUSES = 'GOT_CAMPUSES';
 const GOT_NEW_CAMPUS = 'GOT_NEW_CAMPUS';
@@ -34,17 +34,14 @@ export const getCampuses = () =>
 
 export const postCampus = (campus, history) =>
   dispatch =>
-    Promise.all([
-      axios.post('/api/campuses', campus),
-      dispatch(clearError())
-    ])
-      .then(res => res[0].data)
+    axios.post('/api/campuses', campus)
+      .then(res => res.data)
       .then(campus => {
         dispatch(addNewCampusToStore(campus));
         return campus.id;
       })
       .then(id => history.push(`/campuses/${id}`))
-      .catch(error => dispatch(gotError(error)));
+      .catch(error => console.error(error));
 
 export const deleteCampus = (id, history) =>
   dispatch =>
@@ -56,14 +53,11 @@ export const deleteCampus = (id, history) =>
 
 export const putCampus = (id, update, history) =>
   dispatch =>
-    Promise.all([
-      axios.put(`/api/campuses/${id}`, update),
-      dispatch(clearError())
-    ])
-      .then(res => res[0].data)
+    axios.put(`/api/campuses/${id}`, update)
+      .then(res => res.data)
       .then(campus => dispatch(addUpdatedCampusToStore(campus)))
       .then(() => history.push(`/campuses/${id}`))
-      .catch(error => dispatch(gotError(error)));
+      .catch(error => console.error(error));
 
 const reducer = (state = [], action) => {
   switch (action.type) {

@@ -40,7 +40,7 @@ class TransferStudents extends React.Component {
         </ul>
         <form onSubmit={ event => transfer(event, this.state.students, campus.id) }>
           <div className='form-group'>
-            <select multiple={ true } value={ this.state.students } onChange={ this.handleChange }>
+            <select id='transfer' multiple={ true } value={ this.state.students } onChange={ this.handleChange }>
               { students.map(student => (
                 <option key={ student.id } value={ student.id }>
                   { student.fullName }

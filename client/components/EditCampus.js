@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { putCampus, clearError } from '../store';
+import { putCampus } from '../store';
 
 class EditCampus extends React.Component {
   constructor(props) {
@@ -11,14 +11,18 @@ class EditCampus extends React.Component {
       city: campus ? campus.city : '',
       planet: campus ? campus.planet : '',
       imageUrl: campus ? campus.imageUrl : undefined,
-      description: campus ? campus.description : ''
+      description: campus ? campus.description : '',
+      touched: {
+        name: false,
+        city: false,
+        planet: false,
+        description: false
+      }
     };
     this.handleChange = this.handleChange.bind(this);
     this.goBack = this.goBack.bind(this);
-  }
-
-  componentWillUnmount() {
-    this.props.clear();
+    this.validate = this.validate.bind(this);
+    this.handleBlur = this.handleBlur.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -35,51 +39,69 @@ class EditCampus extends React.Component {
 
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });
-    if(this.props.error.length) {
-      this.props.clear();
-    }
+  }
+
+  handleBlur(field) {
+    const touched = Object.assign(this.state.touched, { [field]: true });
+    this.setState({ touched });
+  }
+
+  validate(name, city, planet, description) {
+    return {
+      name: name.length === 0,
+      city: city.length === 0,
+      planet: planet.length === 0,
+      description: description.length === 0
+    };
   }
 
   render() {
-    const { error, campus, put } = this.props;
-    if(!campus) return null;
+    const { put, campus } = this.props;
+    const { name, city, planet, imageUrl, description, touched } = this.state;
+    const errors = this.validate(name, city, planet, description);
+
+    const showError = field => {
+      const hasError = errors[field];
+      const shouldShow = this.state.touched[field];
+      return hasError ? shouldShow : false;
+    };
+
     return (
       <div>
         <h1>Edit Campus</h1>
-        <ul className='error'>
-          { error.map(err => (
-            <li key={ err }>
-              { err }
-            </li>
-          )) }
-        </ul>
-        <form onSubmit={ (event) => put(event, campus.id, this.state) }>
+        <form onSubmit={ event => put(event, campus.id, this.state) }>
           <div className='form-group'>
             <label htmlFor='name'>Name:</label>
             <input
               type='text'
               name='name'
-              className='form-control'
-              value={ this.state.name }
+              className={ showError('name') ? 'error form-control' : 'form-control'}
+              value={ name }
+              onBlur={ () => this.handleBlur('name')}
               onChange={ this.handleChange } />
+            { errors.name && touched.name ? <p className='error'>Please provide a name.</p> : null }
           </div>
           <div className='form-group'>
             <label htmlFor='city'>City:</label>
             <input
               type='text'
               name='city'
-              className='form-control'
-              value={ this.state.city }
+              className={ showError('city') ? 'error form-control' : 'form-control'}
+              value={ city }
+              onBlur={ () => this.handleBlur('city')}
               onChange={ this.handleChange } />
+            { errors.city && touched.city ? <p className='error'>Please provide a city.</p> : null }
           </div>
           <div className='form-group'>
             <label htmlFor='planet'>Planet:</label>
             <input
               type='text'
               name='planet'
-              className='form-control'
-              value={ this.state.planet }
+              className={ showError('planet') ? 'error form-control' : 'form-control'}
+              value={ planet }
+              onBlur={ () => this.handleBlur('planet')}
               onChange={ this.handleChange } />
+            { errors.planet && touched.planet ? <p className='error'>Please provide a planet.</p> : null }
           </div>
           <div className='form-group'>
             <label htmlFor='imageUrl'>Image URL:</label>
@@ -87,17 +109,20 @@ class EditCampus extends React.Component {
               type='text'
               name='imageUrl'
               className='form-control'
-              value={ this.state.imageUrl }
+              value={ imageUrl }
               onChange={ this.handleChange } />
           </div>
           <div className='form-group'>
             <label htmlFor='description'>Description:</label>
             <br />
             <textarea
+              className={ showError('description') ? 'error' : '' }
               name='description'
               rows='5' cols='50'
-              value={ this.state.description }
+              value={ description }
+              onBlur={ () => this.handleBlur('description')}
               onChange={ this.handleChange } />
+            { errors.description && touched.description ? <p className='error'>Please provide a description.</p> : null }
           </div>
           <button type='submit' className='btn btn-outline-primary'>Submit</button>
           <button type='button' className='btn btn-outline-success' onClick={ this.goBack }> Cancel</button>
@@ -108,7 +133,6 @@ class EditCampus extends React.Component {
 }
 
 const mapState = (state, { match }) => ({
-  error: state.error,
   campus: state.campuses.find(campus => campus.id === Number(match.params.id))
 });
 
@@ -117,9 +141,6 @@ const mapDispatch = (dispatch, { history }) => ({
     event.preventDefault();
     dispatch(putCampus(id, update, history));
   },
-  clear() {
-    dispatch(clearError());
-  }
 });
 
 export default connect(mapState, mapDispatch)(EditCampus);
