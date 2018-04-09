@@ -30,7 +30,7 @@ class TransferDropdown extends React.Component {
               </option>
             ))}
           </select>
-          <button type='submit' className='btn btn-outline-primary'>Transfer Student to { campus.name }</button>
+          <button type='submit' className='btn btn-outline-primary'>Transfer</button>
         </form>
       </div>
     );
@@ -44,9 +44,7 @@ const mapState = state => ({
 const mapDispatch = (dispatch, { history }) => ({
   put(event, id, update, student) {
     event.preventDefault();
-    if(window.confirm(`Are you sure you want to transfer ${student.fullName}?`)) {
-      dispatch(putStudent(id, update, history));
-    }
+    dispatch(putStudent(id, update, history))
   }
 });
 

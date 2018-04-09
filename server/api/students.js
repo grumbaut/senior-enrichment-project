@@ -34,5 +34,10 @@ router.put('/:id', (req, res, next) => {
 
 // Put /api/students/transfer
 router.put('/transfer/:id', (req, res, next) => {
-  console.log(req.body);
+  const promiseArray = req.body.students.map(student => Student.findById(student));
+  Promise.all(promiseArray)
+    .then(students => Promise.all(students.map(student => student.update({
+      campusId: req.body.id
+    }))))
+    .then(students => res.send(students));
 });

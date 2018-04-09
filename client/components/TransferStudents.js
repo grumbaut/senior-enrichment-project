@@ -12,8 +12,14 @@ class TransferStudents extends React.Component {
   }
 
   handleChange(event) {
-    console.log(event.target.value)
-    this.setState({ students: event.target.value});
+    var options = event.target.options;
+    var values = [];
+    for (var i = 0, l = options.length; i < l; i++) {
+      if (options[i].selected) {
+        values.push(options[i].value);
+      }
+    }
+    this.setState({ students: values });
   }
 
   render() {
@@ -24,6 +30,7 @@ class TransferStudents extends React.Component {
     return (
       <div>
         <h1>Transfer Students</h1>
+        <p>Hold CTRL (Windows) / command (Mac) to select multiple students.</p>
         <ul className='error'>
           { error.map(err => (
             <li key={ err }>
@@ -33,7 +40,7 @@ class TransferStudents extends React.Component {
         </ul>
         <form onSubmit={ event => transfer(event, this.state.students, campus.id) }>
           <div className='form-group'>
-            <select multiple={ true } value={ ['-1'] } onChange={ this.handleChange }>
+            <select multiple={ true } value={ this.state.students } onChange={ this.handleChange }>
               { students.map(student => (
                 <option key={ student.id } value={ student.id }>
                   { student.fullName }
