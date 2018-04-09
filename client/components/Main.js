@@ -7,8 +7,10 @@ import Nav from './Nav';
 import Home from './Home';
 import Students from './Students';
 import Campuses from './Campuses';
-import CampusForm from './CampusForm';
-import StudentForm from './StudentForm';
+import EditCampus from './EditCampus';
+import EditStudent from './EditStudent';
+import AddStudent from './AddStudent';
+import AddCampus from './AddCampus';
 import Student from './Student';
 import Campus from './Campus';
 import Footer from './Footer';
@@ -31,12 +33,12 @@ class Main extends React.Component {
             <Switch>
               <Route path='/students/:id' component={ Student } />
               <Route path='/campuses/:id' component={ Campus } />
-              <Route path='/studentform/:id' component={ StudentForm } />
-              <Route path='/campusform/:id' component={CampusForm } />
+              <Route path='/editstudent/:id' component={ EditStudent } />
+              <Route path='/editcampus/:id' component={ EditCampus } />
+              <Route path='/addstudent' component={ AddStudent } />
+              <Route path='/addcampus' component= { AddCampus } />
               <Route path='/students' component={ Students } />
               <Route path='/campuses' component={ Campuses } />
-              <Route path='/campusform' component={ CampusForm } />
-              <Route path='/studentform' component={ StudentForm } />
               <Route exact path='/' component={ Home } />
             </Switch>
           </div>

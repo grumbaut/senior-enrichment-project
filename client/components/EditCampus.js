@@ -1,48 +1,66 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { postCampus, putCampus, clearError } from '../store';
+import { putCampus, clearError } from '../store';
 
-class CampusForm extends React.Component {
+class EditCampus extends React.Component {
   constructor(props) {
     super(props);
     const campus = this.props.campus;
-    this.state = { campus: {
+    this.state = {
       name: campus ? campus.name : '',
       city: campus ? campus.city : '',
       planet: campus ? campus.planet : '',
       imageUrl: campus ? campus.imageUrl : undefined,
       description: campus ? campus.description : ''
-    }
     };
-
     this.handleChange = this.handleChange.bind(this);
+    this.goBack = this.goBack.bind(this);
   }
 
   componentWillUnmount() {
-    this.props.clearError(null);
+    this.props.clear();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.campus) {
+      if(this.state.name !== nextProps.campus.name) {
+        this.setState(nextProps.campus);
+      }
+    }
+  }
+
+  goBack() {
+    this.props.history.goBack();
   }
 
   handleChange(event) {
-    this.setState(Object.assign(
-      this.state.campus,
-      { [event.target.name]: event.target.value })
-    );
+    this.setState({ [event.target.name]: event.target.value });
+    if(this.props.error.length) {
+      this.props.clear();
+    }
   }
 
   render() {
-    const { error, campus, post, put } = this.props;
+    const { error, campus, put } = this.props;
+    if(!campus) return null;
     return (
       <div>
-        <h1>{ campus ? 'Edit Campus' : 'Add Campus' }</h1>
-        { error ? <p><strong>{ error }</strong></p> : null }
-        <form onSubmit={ (event) => campus ? put(event, campus.id, this.state.campus) : post(event, this.state.campus) }>
+        <h1>Edit Campus</h1>
+        <ul className='error'>
+          { error.map(err => (
+            <li key={ err }>
+              { err }
+            </li>
+          )) }
+        </ul>
+        <form onSubmit={ (event) => put(event, campus.id, this.state) }>
           <div className='form-group'>
             <label htmlFor='name'>Name:</label>
             <input
               type='text'
               name='name'
               className='form-control'
-              value={ this.state.campus.name }
+              value={ this.state.name }
               onChange={ this.handleChange } />
           </div>
           <div className='form-group'>
@@ -51,7 +69,7 @@ class CampusForm extends React.Component {
               type='text'
               name='city'
               className='form-control'
-              value={ this.state.campus.city }
+              value={ this.state.city }
               onChange={ this.handleChange } />
           </div>
           <div className='form-group'>
@@ -60,7 +78,7 @@ class CampusForm extends React.Component {
               type='text'
               name='planet'
               className='form-control'
-              value={ this.state.campus.planet }
+              value={ this.state.planet }
               onChange={ this.handleChange } />
           </div>
           <div className='form-group'>
@@ -69,7 +87,7 @@ class CampusForm extends React.Component {
               type='text'
               name='imageUrl'
               className='form-control'
-              value={ this.state.campus.imageUrl }
+              value={ this.state.imageUrl }
               onChange={ this.handleChange } />
           </div>
           <div className='form-group'>
@@ -78,10 +96,11 @@ class CampusForm extends React.Component {
             <textarea
               name='description'
               rows='5' cols='50'
-              value={ this.state.campus.description }
+              value={ this.state.description }
               onChange={ this.handleChange } />
           </div>
-          <button className='btn btn-outline-primary'>Submit</button>
+          <button type='submit' className='btn btn-outline-primary'>Submit</button>
+          <button type='button' className='btn btn-outline-success' onClick={ this.goBack }> Cancel</button>
         </form>
       </div>
     );
@@ -90,21 +109,17 @@ class CampusForm extends React.Component {
 
 const mapState = (state, { match }) => ({
   error: state.error,
-  campus: !match.params.id ? null : state.campuses.find(campus => campus.id === Number(match.params.id))
+  campus: state.campuses.find(campus => campus.id === Number(match.params.id))
 });
 
 const mapDispatch = (dispatch, { history }) => ({
-  post(event, campus) {
-    event.preventDefault();
-    dispatch(postCampus(campus, history));
-  },
   put(event, id, update) {
     event.preventDefault();
     dispatch(putCampus(id, update, history));
   },
-  clearError(error) {
-    dispatch(clearError(error));
+  clear() {
+    dispatch(clearError());
   }
 });
 
-export default connect(mapState, mapDispatch)(CampusForm);
+export default connect(mapState, mapDispatch)(EditCampus);

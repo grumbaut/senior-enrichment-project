@@ -19,7 +19,7 @@ const Students = ({ students, del }) => {
     <div>
       <div className='header'>
         <h1>All Students</h1>
-        <Link to='/studentform'><button className='btn btn-outline-primary'>Add Student</button></Link>
+        <Link to='/addstudent'><button className='btn btn-outline-primary'>Add Student</button></Link>
       </div>
       <StudentItem students={ students } />
     </div>

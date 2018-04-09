@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { gotError, destroyCampus } from './index';
+import { gotError, destroyCampus, clearError } from './index';
 
 const GOT_CAMPUSES = 'GOT_CAMPUSES';
 const GOT_NEW_CAMPUS = 'GOT_NEW_CAMPUS';
@@ -9,7 +9,7 @@ const UPDATE_CAMPUS = 'UPDATE_CAMPUS';
 const addCampusesToStore = campuses => {
   const action = { type: GOT_CAMPUSES, campuses };
   return action;
-}
+};
 
 const addNewCampusToStore = campus => {
   const action = { type: GOT_NEW_CAMPUS, campus };
@@ -34,8 +34,11 @@ export const getCampuses = () =>
 
 export const postCampus = (campus, history) =>
   dispatch =>
-    axios.post('/api/campuses', campus)
-      .then(res => res.data)
+    Promise.all([
+      axios.post('/api/campuses', campus),
+      dispatch(clearError())
+    ])
+      .then(res => res[0].data)
       .then(campus => {
         dispatch(addNewCampusToStore(campus));
         return campus.id;
@@ -53,8 +56,11 @@ export const deleteCampus = (id, history) =>
 
 export const putCampus = (id, update, history) =>
   dispatch =>
-    axios.put(`/api/campuses/${id}`, update)
-      .then(res => res.data)
+    Promise.all([
+      axios.put(`/api/campuses/${id}`, update),
+      dispatch(clearError())
+    ])
+      .then(res => res[0].data)
       .then(campus => dispatch(addUpdatedCampusToStore(campus)))
       .then(() => history.push(`/campuses/${id}`))
       .catch(error => dispatch(gotError(error)));

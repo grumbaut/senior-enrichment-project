@@ -19,7 +19,7 @@ const createCampus = () => {
   const name = `${chance.name()} School of ${campusNames[chance.integer({min: 0, max: campusNames.length - 1})]}`;
   const city = chance.city();
   const state = chance.state();
-  const description = faker.lorem.paragraphs(3);
+  const description = faker.lorem.paragraph(6);
   const planet = planets[chance.integer({ min: 0, max: planets.length - 1})];
   const imageUrl = `/images/database/${planet}.jpg`;
   return Campus.create({

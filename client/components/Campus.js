@@ -21,8 +21,8 @@ const Campus = ({ campus, students, del, match }) => {
           <p><strong>City: </strong>{ campus.city }</p>
           <p><strong>Planet: </strong>{ campus.planet }</p>
           <p>{ campus.description }</p>
-          <Link to={`/campusform/${campus.id}`}><button className='btn btn-outline-primary'>Edit</button></Link>
-          <button className='btn btn-outline-danger' onClick={ del }>Delete</button>
+          <Link to={`/editcampus/${campus.id}`}><button className='btn btn-outline-primary'>Edit</button></Link>
+          <button className='btn btn-outline-danger' onClick={ () => del(campus.name) }>Delete</button>
         </div>
       </div>
       <div className='row students-on-campus'>
@@ -31,7 +31,7 @@ const Campus = ({ campus, students, del, match }) => {
         </div>
         <div className='col-6' id='add-student-to-campus'>
           <Link to={{
-            pathname: '/studentform',
+            pathname: '/addstudent',
             state: { campus }
           }}><button className='btn btn-outline-primary'>Add Student</button></Link>
         </div>
@@ -51,8 +51,10 @@ const mapState = (state, { match }) => ({
 });
 
 const mapDispatch = (dispatch, { history, match }) => ({
-  del() {
-    dispatch(deleteCampus(match.params.id, history));
+  del(name) {
+    if(window.confirm(`Are you sure you want to delete the ${name}?`)){
+      dispatch(deleteCampus(match.params.id, history));
+    }
   }
 });
 

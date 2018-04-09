@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { gotError } from './error';
+import { gotError, clearError } from './index';
 
 const GOT_STUDENTS = 'GOT_STUDENTS';
 const REMOVE_STUDENT = 'REMOVE_STUDENT';
@@ -41,8 +41,11 @@ export const getStudents = () =>
 
 export const postStudent = (student, history) =>
   dispatch =>
-    axios.post('/api/students', student)
-      .then(res => res.data)
+    Promise.all([
+      axios.post('/api/students', student),
+      dispatch(clearError())
+    ])
+      .then(res => res[0].data)
       .then(student => {
         dispatch(addNewStudentToStore(student));
         return student.id;
@@ -59,8 +62,11 @@ export const deleteStudent = (id, history) =>
 
 export const putStudent = (id, update, history) =>
   dispatch =>
-    axios.put(`/api/students/${id}`, update )
-      .then(res => res.data)
+    Promise.all([
+      axios.put(`/api/students/${id}`, update ),
+      dispatch(clearError())
+    ])
+      .then(res => res[0].data)
       .then(student => dispatch(addUpdatedStudentToStore(student)))
       .then(() => history.push(`/students/${id}`))
       .catch(error => dispatch(gotError(error)));

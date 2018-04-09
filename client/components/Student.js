@@ -1,14 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { putStudent, deleteStudent } from '../store';
+import { putStudent, deleteStudent, clearError } from '../store';
 
-import CampusItem from './CampusItem';
+import StudentCampusDetail from './StudentCampusDetail';
 
 class Student extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { value: -1};
+    this.state = { value: -1, editMode: false };
     this.handleChange = this.handleChange.bind(this);
   }
 
@@ -16,75 +16,53 @@ class Student extends React.Component {
     this.setState({ value: event.target.value });
   }
 
-  campus() {
-    const { match, student, campuses, put } = this.props;
-    console.log(student);
-    let campus = null;
-    let registration = `This student is not part of a campus. Please select a campus.`;
-
-    if(student.campusId) {
-      campus = campuses.find(campus => campus.id === Number(student.campusId));
-      registration = 'This student is registered to the following campus:';
-    }
-
-    return (
-      <div className='student-detail'>
-        <h2>{ registration }</h2>
-        <div className='student-detail'>
-          { campus && <CampusItem campuses={[ campus ]} /> }
-          <form onSubmit={ (event) => put(event, match.params.id, { campusId: Number(this.state.value) })}>
-            <select name='campus' value={ this.state.value } onChange={ this.handleChange }>
-              <option value='-1'>Select a campus...</option>
-              { campuses && campuses.map(campus => (
-                <option key={ campus.id } value={ campus.id }>{ campus.name }</option>
-              ))}
-            </select>
-            <br />
-            <button className='btn btn-outline-primary'>Change Campus</button>
-          </form>
-        </div>
-      </div>
-    );
-  }
-
   render() {
-    const { student, del } = this.props;
+    const { student, error, del, campuses, match, put } = this.props;
 
     if(!student) return null;
+
+    const campus = campuses.find(campus => campus.id === student.campusId);
 
     return (
       <div>
         <div className='student-detail'>
           <div>
-            <img src={ student.imageUrl } />
+            <img id='student-img' src={ student.imageUrl } />
           </div>
           <div>
             <h1>{ student.fullName }</h1>
             <h2>GPA: { student.gpa }</h2>
             <div className='student-edit'>
-              <Link to={`/studentform/${student.id}`}><button className='btn btn-outline-primary'>Edit</button></Link>
-              <button className='btn btn-outline-danger' onClick={ () => del(student.id) }>Delete</button>
+              <Link to={`/editstudent/${student.id}`}><button className='btn btn-outline-primary'>Edit</button></Link>
+              <button className='btn btn-outline-danger' onClick={ () => del(student.fullName) }>Delete</button>
             </div>
           </div>
         </div>
-        { this.campus() }
+        <StudentCampusDetail match={ match } student= { student } campuses={ campuses } campus={ campus } put={ put } />
       </div>
     );
   }
+
 }
 
 const mapState = (state,  { match }) => ({
   student: state.students.find(student => student.id === Number(match.params.id)),
-  campuses: state.campuses
+  campuses: state.campuses,
+  error: state.error
 });
 
-const mapDispatch = (dispatch, { history }) => ({
-  del(id) {
-    dispatch(deleteStudent(id, history));
+const mapDispatch = (dispatch, { history, match }) => ({
+  del(name) {
+    if(window.confirm(`Are you sure you want to delete ${name}?`)) {
+      dispatch(deleteStudent(match.params.id, history));
+    }
   },
   put(event, id, update) {
     event.preventDefault();
     dispatch(putStudent(id, update, history));
+  },
+  clearError() {
+    dispatch(clearError());
   }
 });
 

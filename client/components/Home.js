@@ -1,5 +1,4 @@
 import React from 'react';
-import CampusForm from './CampusForm';
 import { Link } from 'react-router-dom';
 
 const Home = () => (

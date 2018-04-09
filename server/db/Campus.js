@@ -1,8 +1,6 @@
 const conn = require('./conn');
 const Sequelize = require('sequelize');
 
-const done = (error) => { return error; };
-
 const Campus = conn.define('campus', {
   name: {
     type: Sequelize.STRING,
@@ -36,7 +34,7 @@ const Campus = conn.define('campus', {
   },
   imageUrl: {
     type: Sequelize.STRING,
-    defaultValue: '/images/database/default.jpg'
+    defaultValue: '/images/database/Earth.jpg'
   },
   description: Sequelize.TEXT('long')
 });
