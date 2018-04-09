@@ -57,7 +57,7 @@ class AddCampus extends React.Component {
       return hasError ? shouldShow : false;
     };
 
-    const isEnabled = !Object.keys(errors).some(key => errors[key])
+    const isEnabled = !Object.keys(errors).some(key => errors[key]);
 
     return (
       <div>

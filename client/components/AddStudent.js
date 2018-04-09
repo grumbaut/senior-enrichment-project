@@ -59,7 +59,7 @@ class AddStudent extends React.Component {
       return hasError ? shouldShow : false;
     };
 
-    const isEnabled = !Object.keys(errors).some(key => errors[key])
+    const isEnabled = !Object.keys(errors).some(key => errors[key]);
 
     return (
       <div>
@@ -131,8 +131,8 @@ class AddStudent extends React.Component {
               ))}
             </select>
           </div>
-          <button type='submit' className='btn btn-outline-primary'>Submit</button>
-          <button disabled={ !isEnabled } type='button' className='btn btn-outline-success' onClick={ this.goBack }>Cancel</button>
+          <button disabled={ !isEnabled } type='submit' className='btn btn-outline-primary'>Submit</button>
+          <button type='button' className='btn btn-outline-success' onClick={ this.goBack }>Cancel</button>
         </form>
       </div>
     );

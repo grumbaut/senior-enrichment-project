@@ -126,7 +126,7 @@ class EditCampus extends React.Component {
               onChange={ this.handleChange } />
             { errors.description && touched.description ? <p className='error'>Please provide a description.</p> : null }
           </div>
-          <button disabled={ !isEnabled }type='submit' className='btn btn-outline-primary'>Submit</button>
+          <button disabled={ !isEnabled } type='submit' className='btn btn-outline-primary'>Submit</button>
           <button type='button' className='btn btn-outline-success' onClick={ this.goBack }> Cancel</button>
         </form>
       </div>
