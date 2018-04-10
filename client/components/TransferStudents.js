@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { transferStudent } from '../store';
+import { transferStudent, sortByLastName } from '../store';
 
 class TransferStudents extends React.Component {
   constructor(props) {
@@ -34,7 +34,7 @@ class TransferStudents extends React.Component {
 
     return (
       <div>
-        <h1>Transfer Students</h1>
+        <h1>Transfer Multiple Students</h1>
         <p>Hold CTRL (Windows) / command (Mac) to select multiple students.</p>
         <form onSubmit={ event => transfer(event, this.state.students, campus.id) }>
           <div className='form-group'>
@@ -58,7 +58,7 @@ class TransferStudents extends React.Component {
 }
 
 const mapState = (state, { match }) => ({
-  students: state.students.filter(student => student.campusId !== Number(match.params.id)),
+  students: sortByLastName(state.students.filter(student => student.campusId !== Number(match.params.id))),
   campus: state.campuses.find(campus => campus.id === Number(match.params.id))
 });
 

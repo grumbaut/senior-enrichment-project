@@ -51,6 +51,10 @@ body {
   max-width: 185px;
 }
 
+#campus-header {
+  text-align: center;
+}
+
 .close {
   text-align: right;
   color: white;
@@ -138,8 +142,6 @@ body {
 
 #add-student-to-campus {
   padding-bottom: 0;
-  display: flex;
-  flex-wrap: wrap;
 }
 
 input[type='text'], select, textarea {

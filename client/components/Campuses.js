@@ -1,10 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { deleteCampus } from '../store';
+import { deleteCampus, sortByName } from '../store';
 import CampusItem from './CampusItem';
 
 const Campuses = ({ campuses, students, del }) => {
+
   if(!campuses.length) {
     return (
       <div className='empty-message'>
@@ -28,7 +29,7 @@ const Campuses = ({ campuses, students, del }) => {
 };
 
 const mapState = state => ({
-  campuses: state.campuses,
+  campuses: sortByName(state.campuses),
   students: state.students
 });
 

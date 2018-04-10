@@ -16,7 +16,7 @@ class TransferDropdown extends React.Component {
   }
 
   render() {
-    const { students, put, campus, campuses } = this.props;
+    const { students, put, campus } = this.props;
     if(!campus) return null;
     const student = students.find(student => student.id === Number(this.state.studentId));
     return (
@@ -37,15 +37,11 @@ class TransferDropdown extends React.Component {
   }
 }
 
-const mapState = state => ({
-  campuses: state.campuses
-});
-
 const mapDispatch = (dispatch, { history }) => ({
-  put(event, id, update, student) {
+  put(event, id, update) {
     event.preventDefault();
-    dispatch(putStudent(id, update, history))
+    dispatch(putStudent(id, update, history));
   }
 });
 
-export default connect(mapState, mapDispatch)(TransferDropdown);
+export default connect(null, mapDispatch)(TransferDropdown);

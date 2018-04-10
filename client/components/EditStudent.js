@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { putStudent } from '../store';
+import { putStudent, sortByName } from '../store';
 
 class EditStudent extends React.Component {
   constructor(props) {
@@ -149,7 +149,7 @@ class EditStudent extends React.Component {
 
 const mapState = (state, { match }) => ({
   student: state.students.find(student => student.id === Number(match.params.id)),
-  campuses: state.campuses
+  campuses: sortByName(state.campuses)
 });
 
 const mapDispatch = (dispatch, { history }) => ({

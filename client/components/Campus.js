@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { deleteCampus } from '../store';
+import { deleteCampus, sortByLastName } from '../store';
 
 import StudentItem from './StudentItem';
 import TransferDropdown from './TransferDropdown';
@@ -27,12 +27,12 @@ const Campus = ({ campus, students, del, match }) => {
           <button className='button-margin btn btn-outline-danger' onClick={ () => del(campus.name) }>Delete</button>
         </div>
       </div>
-      <div className='row students-on-campus'>
-        <div className='col-md-6 col-sm-12'>
+      <div className='row'>
+        <div className='col-md-6 col-sm-12' id='campus-header'>
           <h1>{ !campusStudents.length ? 'There are no students on this campus.' : 'Students on Campus' }</h1>
         </div>
         <div className='col-md-6 col-sm-12' id='add-student-to-campus'>
-          <div>
+          <div className='col-12'>
             <Link to={{
               pathname: '/addstudent',
               state: { campus }
@@ -41,15 +41,13 @@ const Campus = ({ campus, students, del, match }) => {
                 Add New Student
               </button>
             </Link>
-          </div>
-          <div>
             <Link to={`/transfer/${campus.id}`}>
               <button className='button-margin btn btn-outline-success'>
               Transfer Multiple Students
               </button>
             </Link>
           </div>
-          <div>
+          <div className='col-12 justify-content-left'>
             <TransferDropdown students={ studentsNotOnCampus } campus={ campus } />
           </div>
         </div>
@@ -65,7 +63,7 @@ const Campus = ({ campus, students, del, match }) => {
 
 const mapState = (state, { match }) => ({
   campus: state.campuses.find(campus => campus.id === Number(match.params.id)),
-  students: state.students
+  students: sortByLastName(state.students)
 });
 
 const mapDispatch = (dispatch, { history, match }) => ({

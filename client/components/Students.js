@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { deleteStudent } from '../store';
+import { sortByLastName } from '../store';
 
 import StudentItem from './StudentItem';
 
-const Students = ({ students, del }) => {
+const Students = ({ students }) => {
   if(!students.length) {
     return (
       <div className='empty-message'>
@@ -27,13 +27,7 @@ const Students = ({ students, del }) => {
 };
 
 const mapState = state => ({
-  students: state.students
+  students: sortByLastName(state.students)
 });
 
-const mapDispatch = dispatch => ({
-  del(id) {
-    dispatch(deleteStudent(id));
-  }
-});
-
-export default connect(mapState, mapDispatch)(Students);
+export default connect(mapState)(Students);

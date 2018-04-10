@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { postStudent } from '../store';
+import { postStudent, sortByName } from '../store';
 
 class AddStudent extends React.Component {
   constructor(props) {
@@ -140,7 +140,7 @@ class AddStudent extends React.Component {
 }
 
 const mapState = state => ({
-  campuses: state.campuses
+  campuses: sortByName(state.campuses)
 });
 
 const mapDispatch = (dispatch, { history }) => ({

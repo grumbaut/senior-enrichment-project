@@ -35,7 +35,9 @@ export const getStudents = () =>
   dispatch =>
     axios.get('/api/students')
       .then(res => res.data)
-      .then(students => dispatch(addStudentsToStore(students)))
+      .then(students => {
+        dispatch(addStudentsToStore(students));
+      })
       .catch(error => console.error(error));
 
 export const postStudent = (student, history) =>
@@ -88,5 +90,18 @@ const reducer = (state = [], action) => {
     return state;
   }
 };
+
+export const sortByLastName = array =>
+  array.sort((a, b) => {
+    const nameA = a.lastName.toUpperCase();
+    const nameB = b.lastName.toUpperCase();
+    if (nameA < nameB) {
+      return -1;
+    }
+    if(nameA > nameB) {
+      return 1;
+    }
+    return 0;
+  });
 
 export default reducer;
