@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { putStudent, deleteStudent, clearError } from '../store';
+import { putStudent, deleteStudent } from '../store';
 
 import StudentCampusDetail from './StudentCampusDetail';
 
@@ -17,7 +17,7 @@ class Student extends React.Component {
   }
 
   render() {
-    const { student, error, del, campuses, match, put } = this.props;
+    const { student, del, campuses, match, put } = this.props;
 
     if(!student) return null;
 
@@ -47,8 +47,7 @@ class Student extends React.Component {
 
 const mapState = (state,  { match }) => ({
   student: state.students.find(student => student.id === Number(match.params.id)),
-  campuses: state.campuses,
-  error: state.error
+  campuses: state.campuses
 });
 
 const mapDispatch = (dispatch, { history, match }) => ({
@@ -60,9 +59,6 @@ const mapDispatch = (dispatch, { history, match }) => ({
   put(event, id, update) {
     event.preventDefault();
     dispatch(putStudent(id, update, history));
-  },
-  clearError() {
-    dispatch(clearError());
   }
 });
 

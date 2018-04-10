@@ -44,7 +44,7 @@ class AddStudent extends React.Component {
       firstName: firstName.length === 0,
       lastName: lastName.length === 0,
       email: email.length === 0 || email.indexOf('@') < 0,
-      gpa: gpa.length === 0 || Number(gpa) < 0.0 ||Number(gpa) > 4.0
+      gpa: gpa.length === 0 || isNaN(gpa) || Number(gpa) < 0.0 ||Number(gpa) > 4.0
     };
   }
 
@@ -139,7 +139,7 @@ class AddStudent extends React.Component {
   }
 }
 
-const mapState = (state, { match, history }) => ({
+const mapState = state => ({
   campuses: state.campuses
 });
 
