@@ -120,10 +120,10 @@ body {
 }
 
 .student-edit {
-  text-align: right;
+  text-align: center;
 }
 
-.student-edit > button {
+.button-margin {
   margin-left: 10px;
 }
 
@@ -137,8 +137,9 @@ body {
 }
 
 #add-student-to-campus {
-  text-align: right;
   padding-bottom: 0;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 input[type='text'], select, textarea {

@@ -34,7 +34,7 @@ class Student extends React.Component {
             <h2>GPA: { student.gpa }</h2>
             <div className='student-edit'>
               <Link to={`/editstudent/${student.id}`}><button className='btn btn-outline-primary'>Edit</button></Link>
-              <button className='btn btn-outline-danger' onClick={ () => del(student.fullName) }>Delete</button>
+              <button className='button-margin btn btn-outline-danger' onClick={ () => del(student.fullName) }>Delete</button>
             </div>
           </div>
         </div>

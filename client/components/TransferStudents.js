@@ -50,7 +50,7 @@ class TransferStudents extends React.Component {
             </select>
           </div>
           <button type='submit' disabled={ this.state.students.length === 0 } className='btn btn-outline-primary' >Transfer Students to { campus.name }</button>
-          <button type='button' onClick={ this.goBack } className='btn btn-outline-success'>Cancel</button>
+          <button type='button' onClick={ this.goBack } className='button-margin btn btn-outline-success'>Cancel</button>
         </form>
       </div>
     );

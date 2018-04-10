@@ -132,7 +132,7 @@ class AddStudent extends React.Component {
             </select>
           </div>
           <button disabled={ !isEnabled } type='submit' className='btn btn-outline-primary'>Submit</button>
-          <button type='button' className='btn btn-outline-success' onClick={ this.goBack }>Cancel</button>
+          <button type='button' className='button-margin btn btn-outline-success' onClick={ this.goBack }>Cancel</button>
         </form>
       </div>
     );

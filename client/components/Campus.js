@@ -24,7 +24,7 @@ const Campus = ({ campus, students, del, match }) => {
           <p><strong>Planet: </strong>{ campus.planet }</p>
           <p>{ campus.description }</p>
           <Link to={`/editcampus/${campus.id}`}><button className='btn btn-outline-primary'>Edit</button></Link>
-          <button className='btn btn-outline-danger' onClick={ () => del(campus.name) }>Delete</button>
+          <button className='button-margin btn btn-outline-danger' onClick={ () => del(campus.name) }>Delete</button>
         </div>
       </div>
       <div className='row students-on-campus'>
@@ -32,24 +32,26 @@ const Campus = ({ campus, students, del, match }) => {
           <h1>{ !campusStudents.length ? 'There are no students on this campus.' : 'Students on Campus' }</h1>
         </div>
         <div className='col-md-6 col-sm-12' id='add-student-to-campus'>
-          <Link to={{
-            pathname: '/addstudent',
-            state: { campus }
-          }}>
-            <button className='btn btn-outline-primary'>
-              Add New Student
-            </button>
-          </Link>
-          <Link to={`/transfer/${campus.id}`}>
-            <button className='btn btn-outline-success'>
-            Transfer Multiple Students
-            </button>
-          </Link>
-        </div>
-      </div>
-      <div className='row'>
-        <div className='col-12'>
-          <TransferDropdown students={ studentsNotOnCampus } campus={ campus } />
+          <div>
+            <Link to={{
+              pathname: '/addstudent',
+              state: { campus }
+            }}>
+              <button className='btn btn-outline-primary'>
+                Add New Student
+              </button>
+            </Link>
+          </div>
+          <div>
+            <Link to={`/transfer/${campus.id}`}>
+              <button className='button-margin btn btn-outline-success'>
+              Transfer Multiple Students
+              </button>
+            </Link>
+          </div>
+          <div>
+            <TransferDropdown students={ studentsNotOnCampus } campus={ campus } />
+          </div>
         </div>
       </div>
       <div className='row'>
