@@ -47,6 +47,10 @@ body {
   width: 100%
 }
 
+#student-img {
+  max-width: 250px;
+}
+
 .close {
   text-align: right;
   color: white;
