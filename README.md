@@ -1,3 +1,7 @@
+# Live Link
+
+Visit https://gabe-rumbaut-senior-enrichment.herokuapp.com/ for the deployed site.
+
 # Senior Enrichment Project
 
 Make a thing!
@@ -14,7 +18,7 @@ You are the CTO of the Margaret Hamilton Interplanetary Academy of JavaScript. C
 
 ### The tools
 
-Use at least Sequelize, Express and React when creating this app. This app is small, so just using React is reasonable, but note that without practicing with more frontend libraries you will have a steep learning curve in senior phase. If you are going forward with ***just React*** you will benefit from **deleting all references to React-Redux, Redux and React-Router** (so you don't confuse yourself with trying to use something in half your files and not the other half). 
+Use at least Sequelize, Express and React when creating this app. This app is small, so just using React is reasonable, but note that without practicing with more frontend libraries you will have a steep learning curve in senior phase. If you are going forward with ***just React*** you will benefit from **deleting all references to React-Redux, Redux and React-Router** (so you don't confuse yourself with trying to use something in half your files and not the other half).
 
 If you feel ready, start by incorporating React-Router, Redux and React-Redux (we helped get you started with this!)! If you go this route, it will be great practice and will prepare you **well** for senior phase.
 
