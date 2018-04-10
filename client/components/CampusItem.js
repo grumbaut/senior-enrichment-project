@@ -6,7 +6,7 @@ const CampusItem = ({ campuses, students }) => (
     const count = !students ? null : `${students.filter(student => student.campusId == campus.id).length} students`;
 
     return (
-      <div key={ campus.id } className='col-5 campus-item'>
+      <div key={ campus.id } className='col-md-5 col-sm-12 campus-item'>
         <div className='media'>
           <img className='col-6' src={ campus.imageUrl } />
           <div className='col-6'>

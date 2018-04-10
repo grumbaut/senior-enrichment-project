@@ -15,10 +15,10 @@ const Campus = ({ campus, students, del, match }) => {
   return (
     <div>
       <div className='row campus justify-content-center'>
-        <div className='col-6'>
+        <div className='col-md-6 col-sm-12'>
           <img className='img-fluid' src={ campus.imageUrl} />
         </div>
-        <div className='col-6'>
+        <div className='col-md-6 col-sm-12'>
           <h1>{ campus.name }</h1>
           <p><strong>City: </strong>{ campus.city }</p>
           <p><strong>Planet: </strong>{ campus.planet }</p>
@@ -28,10 +28,10 @@ const Campus = ({ campus, students, del, match }) => {
         </div>
       </div>
       <div className='row students-on-campus'>
-        <div className='col-6'>
+        <div className='col-md-6 col-sm-12'>
           <h1>{ !campusStudents.length ? 'There are no students on this campus.' : 'Students on Campus' }</h1>
         </div>
-        <div className='col-6' id='add-student-to-campus'>
+        <div className='col-md-6 col-sm-12' id='add-student-to-campus'>
           <Link to={{
             pathname: '/addstudent',
             state: { campus }

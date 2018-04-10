@@ -17,7 +17,7 @@ const Students = ({ students, del }) => {
 
   return (
     <div>
-      <div className='header'>
+      <div className='header row'>
         <h1>All Students</h1>
         <Link to='/addstudent'><button className='btn btn-outline-primary'>Add Student</button></Link>
       </div>

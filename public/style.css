@@ -7,8 +7,6 @@ body {
 
 #main {
   background-size: cover;
-  width: 100vw;
-  margin: 0;
 }
 
 #intro {
@@ -94,7 +92,6 @@ body {
   border: 2px double #8a5478;
   border-radius: 20px;
   margin: 10px;
-  width: 15vw;
   padding: 15px;
   text-align: center;
   overflow-wrap: break-word;
@@ -160,4 +157,11 @@ input.error[type='text'], textarea.error {
 
 .error {
   color: red;
+}
+
+@media (max-width: 768px) {
+  #intro {
+    margin: 25px;
+    width: 100%;
+  }
 }

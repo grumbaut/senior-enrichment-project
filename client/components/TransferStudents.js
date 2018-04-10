@@ -9,6 +9,11 @@ class TransferStudents extends React.Component {
       students: []
     };
     this.handleChange = this.handleChange.bind(this);
+    this.goBack = this.goBack.bind(this);
+  }
+
+  goBack() {
+    this.props.history.goBack();
   }
 
   handleChange(event) {
@@ -23,7 +28,7 @@ class TransferStudents extends React.Component {
   }
 
   render() {
-    const { error, transfer, campus, students } = this.props;
+    const { transfer, campus, students } = this.props;
 
     if(!campus) return null;
 
@@ -31,16 +36,12 @@ class TransferStudents extends React.Component {
       <div>
         <h1>Transfer Students</h1>
         <p>Hold CTRL (Windows) / command (Mac) to select multiple students.</p>
-        <ul className='error'>
-          { error.map(err => (
-            <li key={ err }>
-              { err }
-            </li>
-          )) }
-        </ul>
         <form onSubmit={ event => transfer(event, this.state.students, campus.id) }>
           <div className='form-group'>
-            <select id='transfer' multiple={ true } value={ this.state.students } onChange={ this.handleChange }>
+            <select
+              id='transfer'
+              multiple={ true } value={ this.state.students }
+              onChange={ this.handleChange }>
               { students.map(student => (
                 <option key={ student.id } value={ student.id }>
                   { student.fullName }
@@ -48,7 +49,8 @@ class TransferStudents extends React.Component {
               ))}
             </select>
           </div>
-          <button className='btn btn-outline-primary' disabled={ !this.state.students }>Transfer Students to { campus.name }</button>
+          <button type='submit' disabled={ this.state.students.length === 0 } className='btn btn-outline-primary' >Transfer Students to { campus.name }</button>
+          <button type='button' onClick={ this.goBack } className='btn btn-outline-success'>Cancel</button>
         </form>
       </div>
     );
@@ -57,8 +59,7 @@ class TransferStudents extends React.Component {
 
 const mapState = (state, { match }) => ({
   students: state.students.filter(student => student.campusId !== Number(match.params.id)),
-  campus: state.campuses.find(campus => campus.id === Number(match.params.id)),
-  error: state.error
+  campus: state.campuses.find(campus => campus.id === Number(match.params.id))
 });
 
 const mapDispatch = (dispatch, { history }) => ({
