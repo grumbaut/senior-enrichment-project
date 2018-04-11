@@ -36,7 +36,16 @@ const Campus = conn.define('campus', {
     type: Sequelize.STRING,
     defaultValue: '/images/database/Earth.jpg'
   },
-  description: Sequelize.TEXT('long')
+  description: {
+    type: Sequelize.TEXT('long'),
+    allowNull: false,
+    validate: {
+      notEmpty: {
+        args: true,
+        msg: 'Please provide a description.'
+      }
+    }
+  }
 });
 
 module.exports = Campus;
