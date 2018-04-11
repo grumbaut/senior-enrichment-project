@@ -21,7 +21,7 @@ const addNewStudentToStore = student => {
   return action;
 };
 
-const addUpdatedStudentToStore = student => {
+export const addUpdatedStudentToStore = student => {
   const action = { type: UPDATE_STUDENT, student };
   return action;
 };
@@ -64,14 +64,6 @@ export const putStudent = (id, update, history) =>
       .then(res => res.data)
       .then(student => dispatch(addUpdatedStudentToStore(student)))
       .then(() => history.push(`/students/${id}`))
-      .catch(error => console.error(error));
-
-export const transferStudent = (students, id, history) =>
-  dispatch =>
-    axios.put(`/api/students/transfer/${id}`, { students, id })
-      .then(res => res.data)
-      .then(students => students.forEach(student => dispatch(addUpdatedStudentToStore(student))))
-      .then(() => history.push(`/campuses/${id}`))
       .catch(error => console.error(error));
 
 const reducer = (state = [], action) => {

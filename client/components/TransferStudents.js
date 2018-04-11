@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { transferStudent, sortByLastName } from '../store';
+import { transferStudents, sortByLastName } from '../store';
 
 class TransferStudents extends React.Component {
   constructor(props) {
@@ -65,7 +65,7 @@ const mapState = (state, { match }) => ({
 const mapDispatch = (dispatch, { history }) => ({
   transfer(event, students, id) {
     event.preventDefault();
-    dispatch(transferStudent(students, id, history));
+    dispatch(transferStudents(students, id, history));
   }
 });
 

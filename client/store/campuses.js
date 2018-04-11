@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { destroyCampus } from './index';
+import { destroyCampus, addUpdatedStudentToStore } from './index';
 
 const GOT_CAMPUSES = 'GOT_CAMPUSES';
 const GOT_NEW_CAMPUS = 'GOT_NEW_CAMPUS';
@@ -56,6 +56,14 @@ export const putCampus = (id, update, history) =>
     axios.put(`/api/campuses/${id}`, update)
       .then(res => res.data)
       .then(campus => dispatch(addUpdatedCampusToStore(campus)))
+      .then(() => history.push(`/campuses/${id}`))
+      .catch(error => console.error(error));
+
+export const transferStudents = (students, id, history) =>
+  dispatch =>
+    axios.put(`/api/campuses/transfer/${id}`, { students, id })
+      .then(res => res.data)
+      .then(students => students.forEach(student => dispatch(addUpdatedStudentToStore(student))))
       .then(() => history.push(`/campuses/${id}`))
       .catch(error => console.error(error));
 
