@@ -53,7 +53,7 @@ const createStudent = () => {
 const associate = (student) => {
   return Campus.findAll()
     .then(campuses => {
-      const index = (Math.random() * campuses.length).toFixed(0);
+      const index = (Math.random() * campuses.length - 1).toFixed(0);
       return campuses[index];
     })
     .then(campus => {
