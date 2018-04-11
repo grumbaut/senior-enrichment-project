@@ -15,13 +15,11 @@ class StudentCampusDetail extends React.Component {
   }
 
   render() {
-    const { match, student, campuses, put } = this.props;
+    const { match, campuses, put, campus } = this.props;
 
-    let campus = null;
     let registration = `This student is not part of a campus. Please select a campus.`;
 
-    if(student.campusId) {
-      campus = campuses.find(campus => campus.id === Number(student.campusId));
+    if(campus) {
       registration = 'This student is registered to the following campus:';
     }
 

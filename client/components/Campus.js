@@ -6,11 +6,7 @@ import { deleteCampus, sortByLastName } from '../store';
 import StudentItem from './StudentItem';
 import TransferDropdown from './TransferDropdown';
 
-const Campus = ({ campus, students, del, match }) => {
-  const id = match.params.id;
-  const campusStudents = students.filter(student => student.campusId === Number(id));
-  const studentsNotOnCampus = students.filter(student => student.campusId !== Number(id));
-
+const Campus = ({ campus, del, campusStudents, studentsNotOnCampus }) => {
   if(!campus) return null;
   return (
     <div>
@@ -63,10 +59,14 @@ const Campus = ({ campus, students, del, match }) => {
   );
 };
 
-const mapState = (state, { match }) => ({
-  campus: state.campuses.find(campus => campus.id === Number(match.params.id)),
-  students: sortByLastName(state.students)
-});
+const mapState = (state, { match }) => {
+  const id = match.params.id;
+  const campus = state.campuses.find(campus => campus.id === Number(match.params.id));
+  const students = sortByLastName(state.students);
+  const campusStudents = students.filter(student => student.campusId === Number(id));
+  const studentsNotOnCampus = students.filter(student => student.campusId !== Number(id));
+  return { campus, campusStudents, studentsNotOnCampus, id };
+};
 
 const mapDispatch = (dispatch, { history, match }) => ({
   del(name) {
