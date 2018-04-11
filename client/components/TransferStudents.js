@@ -17,8 +17,8 @@ class TransferStudents extends React.Component {
   }
 
   handleChange(event) {
-    var options = event.target.options;
-    var values = [];
+    const options = event.target.options;
+    let values = [];
     for (var i = 0, l = options.length; i < l; i++) {
       if (options[i].selected) {
         values.push(options[i].value);

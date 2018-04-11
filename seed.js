@@ -63,10 +63,10 @@ const associate = (student) => {
 
 conn.sync({ force: true })
   .then(() => {
-    return Promise.all(create(6, createCampus));
+    return Promise.all(create(4, createCampus));
   })
   .then(() => {
-    return Promise.all(create(100, createStudent));
+    return Promise.all(create(50, createStudent));
   })
   .finally(() => {
     conn.close();

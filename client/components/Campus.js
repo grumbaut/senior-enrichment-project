@@ -16,7 +16,9 @@ const Campus = ({ campus, students, del, match }) => {
     <div>
       <div className='row campus justify-content-center'>
         <div className='col-md-6 col-sm-12'>
-          <img className='img-fluid' src={ campus.imageUrl} />
+          <div id='campus-image'>
+            <img className='img-fluid' src={ campus.imageUrl} />
+          </div>
         </div>
         <div className='col-md-6 col-sm-12'>
           <h1>{ campus.name }</h1>
